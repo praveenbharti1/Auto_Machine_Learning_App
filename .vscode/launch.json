@@ -1,0 +1,16 @@
+{
+    "version": "0.1.0",
+    "configurations": [
+        {
+            "name": "debug streamlit",
+            "type": "python",
+            "request": "launch",
+            "justMyCode" : true,
+            "program": "E:/Data_science_Projects/ML-Projects/auto_prediction_ML/pondering/auto_ml/env/Lib/site-packages/streamlit",  // /home/xx/tmp/venv/bin/streamlit",
+            "args": [
+                "run",
+                "main.py"
+            ]
+        }
+    ]
+    }
