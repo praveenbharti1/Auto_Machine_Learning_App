@@ -9,5 +9,4 @@ xgboost
 seaborn
 matplotlib
 streamlit_option_menu
-SQLAlchemy
-
+pymongo[srv]==3.6
