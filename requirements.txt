@@ -9,5 +9,5 @@ xgboost
 seaborn
 matplotlib
 streamlit_option_menu
-sqlalchemy
+SQLAlchemy
 
