@@ -27,8 +27,8 @@ class Home_Page:
 
         # Get a list of table names in the database
         table_names = metadata.tables.keys()
+        st.write(table_names)
        
-
         # # Close the connection
         # engine.dispose()
 
