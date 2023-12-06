@@ -86,7 +86,7 @@ class Home_Page:
             st.title("SQLite Table List Viewer")
 
             # Option to choose between file upload and table selection
-            option = st.radio("Choose an option:", ["Upload a file", "Select a table from SQLite"])
+            option = st.radio("Choose an option:", ["Upload a file", "Select a table from Sample Data"])
 
             if option == "Upload a file":
                 # File uploader
@@ -108,9 +108,9 @@ class Home_Page:
                     st.write('Your Uploaded Data:')
                     self.data = pd.read_csv("Raw_data/raw_file.csv")
 
-            elif option == "Select a table from SQLite":
+            elif option == "Select a table from Sample Data":
                 
-                db_name = r'sample_data\sample_data'
+                db_name = r'sample_data/sample_data'
                 tables = self.get_table_names()
                 st.write(tables)
                 
