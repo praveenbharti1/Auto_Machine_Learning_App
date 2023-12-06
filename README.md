@@ -1,9 +1,3 @@
-Hello, this is Bing. I can help you with your request. 😊
-
-To make your text in markdown format, you need to use some special symbols and syntax to format your headings, lists, links, and other elements. Markdown is a lightweight markup language that is widely used for documentation, blogging, and web development¹. You can find more information and examples on how to use markdown in the [web search results](^2^) ³ .
-
-Here is your text converted to markdown format:
-
 # Auto Machine Learning Documentation
 
 Welcome to Auto Machine Learning, your go-to solution for effortless data-driven insights! Whether you're a beginner or an experienced data enthusiast, our tool is designed to streamline the machine learning process, making it accessible to everyone. This documentation will guide you through the key features and usage of the Auto Machine Learning app.
