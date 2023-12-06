@@ -167,22 +167,7 @@ class AutoML:
                         user_input = AutoMlVisual()
                         user_input.user_input_features()
 
-                       
-                        # depen_dtype = pd.read_csv(r"Pre_Trained_Data/dependent.csv")
-                        # label_encode = joblib.load(r'Model/label_encode.joblib')
-                        # label_encod = label_encode[depen_dtype.columns[0]]
-                
-                        # if depen_dtype.columns.dtype == "O":
-                        #     encoded_val = label_encod.inverse_transform([int(user_input.pred[0])])
-                        #     st.dataframe(encoded_val)
-                        # else:
-                        #     st.dataframe(user_input.pred)
-
-                        # st.subheader('Prediction Probality')
-                        # st.write(user_input.prediction_proba)
-
-
-                
+                     
                 if app == "About": 
                     about_page = About()
                     about_page.aboutsection() 

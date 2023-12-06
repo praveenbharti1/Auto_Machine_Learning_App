@@ -112,6 +112,7 @@ class Home_Page:
                 
                 db_name = r'sample_data\sample_data'
                 tables = self.get_table_names()
+                st.write(tables)
                 
                 # Display a dropdown with the list of table names
                 selected_table = st.selectbox("Select a table", tables)
