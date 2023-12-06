@@ -16,23 +16,22 @@ class Home_Page:
         self.raw_data = None
         self.log = CustomLogger("log.log")
 
-    # def get_table_names(self):
-    #     database_name = 'https://drive.google.com/file/d/1CYuNCOlZ_aHiI4tKjC_vo8mkfBxFFRyl/view?usp=drive_link'
-    #     # SQLite Database and Engine
-    #     engine = create_engine(f'sqlite:///{database_name}.db')
+    def get_table_names(self):
+        database_name = 'sample_data\sample_data'
+        # SQLite Database and Engine
+        engine = create_engine(f'sqlite:///{database_name}.db')
 
-    #     # Reflect the database schema
-    #     metadata = MetaData()
-    #     metadata.reflect(bind=engine)
+        # Reflect the database schema
+        metadata = MetaData()
+        metadata.reflect(bind=engine)
 
-    #     # Get a list of table names in the database
-    #     table_names = metadata.tables.keys()
-    #     st.write(table_names)
+        # Get a list of table names in the database
+        table_names = metadata.tables.keys()
        
-    #     # # Close the connection
-    #     # engine.dispose()
+        # # Close the connection
+        # engine.dispose()
 
-    #     return list(table_names)
+        return list(table_names)
 
     def upload_data(self):
         try:
@@ -83,8 +82,7 @@ class Home_Page:
                 ''', unsafe_allow_html=True)
             st.markdown('Ready to get started? Get started by uploading your dataset.')
 
-            # Streamlit app
-            st.title("SQLite Table List Viewer")
+            
 
             # Option to choose between file upload and table selection
             option = st.radio("Choose an option:", ["Upload a file", "Select a table from Sample Data"])
@@ -112,14 +110,7 @@ class Home_Page:
             elif option == "Select a table from Sample Data":
                 
                 db_name = r'sample_data\sample_data'
-                tables = ['Parkinsons Telemonitoring','hospitalized patients','Banknote','concrete_slump_test',
-                          'House_price_prediction','nursery_data', 'German_Credit', 'Fruits', 'Advertising', 
-                          'Combined Cycle Power Plant', 'Bank', 'IPL2013', 'Cirrhosis Death_Rate',
-                          'Breast_Cancer_data', 'pokemon', 'Forest_fire', 'mammal_species_Weight_Brain',
-                          'Bank additional', 'meta_data', 'Electrical Grid Stability Simulated Data', 'audit_risk',
-                          'French Franc', 'parkinsons_data', 'mushrooms', 'Daily Demand Forecasting Orders',
-                          'frequencies', 'poker_hand_training_true_data', 'ChurnData', 'iris', 'bach', 
-                          'insurance_data', 'abalone data']
+                tables = self.get_table_names()
                 
                 
                 # Display a dropdown with the list of table names
@@ -141,9 +132,6 @@ class Home_Page:
                 selected_df.to_csv("Raw_data/raw_file.csv", index=False)
                 self.log.log_info("Data uploaded and saved to 'Raw_data/raw_file.csv'")
 
-                
-
-                
                 # Close the connection
                 engine.dispose()
         except Exception as e:
