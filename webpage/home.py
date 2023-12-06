@@ -17,7 +17,7 @@ class Home_Page:
         self.log = CustomLogger("log.log")
 
     def get_table_names(self):
-        database_name = 'sample_data\sample_data'
+        database_name = 'https://drive.google.com/file/d/1CYuNCOlZ_aHiI4tKjC_vo8mkfBxFFRyl/view?usp=drive_link'
         # SQLite Database and Engine
         engine = create_engine(f'sqlite:///{database_name}.db')
 
