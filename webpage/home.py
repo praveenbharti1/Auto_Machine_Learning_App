@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 from Logger import CustomLogger
 import warnings
-from sqlalchemy import create_engine, MetaData
+import sqlite3
 
 warnings.filterwarnings('ignore')
 
@@ -15,23 +15,6 @@ class Home_Page:
         self.data = None
         self.raw_data = None
         self.log = CustomLogger("log.log")
-
-    def get_table_names(self):
-        database_name = 'sample_data\sample_data'
-        # SQLite Database and Engine
-        engine = create_engine(f'sqlite:///{database_name}.db')
-
-        # Reflect the database schema
-        metadata = MetaData()
-        metadata.reflect(bind=engine)
-
-        # Get a list of table names in the database
-        table_names = metadata.tables.keys()
-       
-        # # Close the connection
-        # engine.dispose()
-
-        return list(table_names)
 
     def upload_data(self):
         try:
@@ -109,31 +92,32 @@ class Home_Page:
 
             elif option == "Select a table from Sample Data":
                 
-                db_name = r'sample_data\sample_data'
-                tables = self.get_table_names()
-                
+                db_name = 'sample_data\sample_data.db'
+                conn = sqlite3.connect(db_name)
+                c = conn.cursor()
+
+                c.execute("SELECT name FROM sqlite_master WHERE type='table';")
+
+                # Fetch all table names using list comprehension
+                table_names = [table[0] for table in c.fetchall()]
                 
                 # Display a dropdown with the list of table names
-                selected_table = st.selectbox("Select a table", tables)
+                selected_table = st.selectbox("Select a table", table_names)
                 
-
                 # Display the selected table name
                 st.write(f"You selected: {selected_table}")
 
                 # Convert selected table to DataFrame
-                engine = create_engine(f'sqlite:///{db_name}.db')
-                selected_df = pd.read_sql_table(selected_table, engine)
+                query = f"SELECT * FROM {selected_table};"
+                df = pd.read_sql_query(query, conn)
 
                 # Display the selected DataFrame
                 st.write('Selected Table Data:')
-                st.write(selected_df)
+                st.write(df)
 
-                self.raw_data = selected_df
-                selected_df.to_csv("Raw_data/raw_file.csv", index=False)
+                self.raw_data = df
+                df.to_csv("Raw_data/raw_file.csv", index=False)
                 self.log.log_info("Data uploaded and saved to 'Raw_data/raw_file.csv'")
-
-                # Close the connection
-                engine.dispose()
         except Exception as e:
             self.log.log_info(f"this is error and your error is{str(e)} ")
 
