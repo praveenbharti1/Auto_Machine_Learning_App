@@ -27,6 +27,7 @@ class Home_Page:
 
         # Get a list of table names in the database
         table_names = metadata.tables.keys()
+        st.write(table_names)
 
         # Close the connection
         engine.dispose()
@@ -110,9 +111,9 @@ class Home_Page:
 
             elif option == "Select a table from Sample Data":
                 
-                db_name = r'sample_data/sample_data'
+                db_name = r'sample_data\sample_data'
                 tables = self.get_table_names()
-                st.write(tables)
+                
                 
                 # Display a dropdown with the list of table names
                 selected_table = st.selectbox("Select a table", tables)
