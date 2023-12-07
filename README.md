@@ -42,6 +42,9 @@ Auto Machine Learning is a passion project born out of the recognition that data
 ## Development Journey
 The Auto Machine Learning tool was developed through continuous learning, dedication, and countless hours of coding. The team aimed to create a user-friendly solution that doesn't require expertise to analyze data effectively. The project is an ongoing journey, with a commitment to supporting users on their data exploration.
 
+## Deployed Link:
+### https://automachinelearning.streamlit.app/
+
 ## Contact Information
 If you have any questions, feedback, or just want to say 'hi,' feel free to reach out to us:
 
