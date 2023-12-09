@@ -9,4 +9,4 @@ xgboost
 seaborn
 matplotlib
 streamlit_option_menu
-pymongo[srv]==3.6
+pymongo

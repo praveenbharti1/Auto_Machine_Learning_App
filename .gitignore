@@ -8,6 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+.streamlit/secrets.toml
 build/
 develop-eggs/
 dist/

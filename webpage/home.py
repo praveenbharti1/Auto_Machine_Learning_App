@@ -1,11 +1,16 @@
 import os
 import pandas as pd
 import streamlit as st
+from pymongo.mongo_client import MongoClient
 from Logger import CustomLogger
 import warnings
-import sqlite3
 
 warnings.filterwarnings('ignore')
+
+# Initialize connection to MongoDB using st.secrets
+mongo_username = st.secrets["secrets"]["username"]
+mongo_password = st.secrets["secrets"]["password"]
+
 
 class Home_Page:
     def __init__(self):
@@ -16,13 +21,13 @@ class Home_Page:
         self.raw_data = None
         self.log = CustomLogger("log.log")
 
+    st.cache_data(ttl=600)
     def upload_data(self):
         try:
             st.markdown(
                 """
                 <style>
                     body {
-                        background-image: url('webpage\asset\ketkibackgroundimg.jpg');
                         background-size: cover;
                         font-family: 'Arial', sans-serif;
                         color: #333;
@@ -68,7 +73,7 @@ class Home_Page:
             
 
             # Option to choose between file upload and table selection
-            option = st.radio("Choose an option:", ["Upload a file", "Select a table from Sample Data"])
+            option = st.radio("Choose an option:", ["Upload a file", "Select a table from Sample Data"], horizontal=True)
 
             if option == "Upload a file":
                 # File uploader
@@ -91,30 +96,29 @@ class Home_Page:
                     self.data = pd.read_csv("Raw_data/raw_file.csv")
 
             elif option == "Select a table from Sample Data":
-                
-                db_name = 'sample_data\sample_data.db'
-                conn = sqlite3.connect(db_name)
-                c = conn.cursor()
+                client = MongoClient(f"mongodb+srv://{mongo_username}:{mongo_password}@cluster0.xgvrey3.mongodb.net/?retryWrites=true&w=majorit")
+                db = client['your_mongo_database']
+                table_list = db.list_collection_names()
+                table_name  = [list for list in table_list]
 
-                c.execute("SELECT name FROM sqlite_master WHERE type='table';")
-
-                # Fetch all table names using list comprehension
-                table_names = [table[0] for table in c.fetchall()]
-                
-                # Display a dropdown with the list of table names
-                selected_table = st.selectbox("Select a table", table_names)
+                selected_table = st.selectbox("Select a table", table_name)
                 
                 # Display the selected table name
                 st.write(f"You selected: {selected_table}")
 
-                # Convert selected table to DataFrame
-                query = f"SELECT * FROM {selected_table};"
-                df = pd.read_sql_query(query, conn)
+                dataframe = list(db[selected_table].find())
+                df = pd.DataFrame(dataframe)
+                df = df.iloc[:,1:]
+                # Find and drop unnamed columns
+                unnamed_columns = [col for col in df.columns if 'Unnamed: 0' in col]
+
+                if unnamed_columns:
+                    df = df.drop(columns=unnamed_columns)
 
                 # Display the selected DataFrame
-                st.write('Selected Table Data:')
+                st.header('Selected Table Data:')
                 st.write(df)
-
+                
                 self.raw_data = df
                 df.to_csv("Raw_data/raw_file.csv", index=False)
                 self.log.log_info("Data uploaded and saved to 'Raw_data/raw_file.csv'")

@@ -99,6 +99,7 @@ class AutoMlVisual:
                                 
                 self.imp_data = pd.DataFrame(self.imputed_data, index=[0])
                 st.write('### User Input Data')
+                st.write('###### For Changing The User Input Scroll Sidebar Below')
                 st.dataframe(self.imp_data)
 
                 st.write("""
