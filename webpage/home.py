@@ -96,7 +96,7 @@ class Home_Page:
                     self.data = pd.read_csv("Raw_data/raw_file.csv")
 
             elif option == "Select a table from Sample Data":
-                client = MongoClient(f"mongodb+srv://database_key:sOiWbwm5Q7pWZuZW@cluster0.xgvrey3.mongodb.net/?retryWrites=true&w=majority")
+                client = MongoClient(f"mongodb+srv://database:h0oIeUCMPCUFXASn@cluster0.xgvrey3.mongodb.net/?retryWrites=true&w=majority")
                 db = client['your_mongo_database']
                 table_list = db.list_collection_names()
                 table_name  = [list for list in table_list]
