@@ -8,8 +8,8 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Initialize connection to MongoDB using st.secrets
-mongo_username = st.secrets["secrets"]["username"]
-mongo_password = st.secrets["secrets"]["password"]
+# mongo_username = st.secrets["secrets"]["username"]
+# mongo_password = st.secrets["secrets"]["password"]
 
 
 class Home_Page:
