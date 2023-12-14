@@ -97,8 +97,8 @@ class Home_Page:
 
             elif option == "Select a table from Sample Data":
                 client = MongoClient("mongodb+srv://test:NRs2DqKb13fZ6AcY@cluster0.xgvrey3.mongodb.net/your_mongo_database?retryWrites=true&w=majority")
-                st.write(client)
                 db = client['your_mongo_database']
+                st.write(db)
                 table_list = db.list_collection_names()
                 table_name  = [list for list in table_list]
                 
