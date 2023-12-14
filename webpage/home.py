@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import streamlit as st
+from decouple import config
 from pymongo.mongo_client import MongoClient
 from Logger import CustomLogger
 import warnings
@@ -96,10 +97,11 @@ class Home_Page:
                     self.data = pd.read_csv("Raw_data/raw_file.csv")
 
             elif option == "Select a table from Sample Data":
-                client = MongoClient("mongodb+srv://test:NRs2DqKb13fZ6AcY@cluster0.xgvrey3.mongodb.net/your_mongo_database?retryWrites=true&w=majority")
+                MONGO_USERNAME = config('MONGO_USERNAME')
+                MONGO_PASSWORD = config('MONGO_PASSWORD')
+                client = MongoClient(f"mongodb+srv://{MONGO_USERNAME}:{MONGO_PASSWORD}@cluster0.xgvrey3.mongodb.net/?retryWrites=true&w=majority")
                 db = client['your_mongo_database']
                 table_list = db.list_collection_names()
-                st.write(table_list)
                 table_name  = [list for list in table_list]
                 
                 selected_table = st.selectbox("Select a table", table_name)

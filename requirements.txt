@@ -9,4 +9,5 @@ xgboost
 seaborn
 matplotlib
 streamlit_option_menu
-pymongo==4.6.1
+pymongo
+python-decouple
