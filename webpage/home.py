@@ -97,8 +97,8 @@ class Home_Page:
 
             elif option == "Select a table from Sample Data":
                 client = MongoClient("mongodb+srv://test:NRs2DqKb13fZ6AcY@cluster0.xgvrey3.mongodb.net/your_mongo_database?retryWrites=true&w=majority")
-                # db = client['your_mongo_database']
-                table_list = client.list_collection_names()
+                db = client['your_mongo_database']
+                table_list = db.list_collection_names()
                 table_name  = [list for list in table_list]
 
                 selected_table = st.selectbox("Select a table", table_name)
