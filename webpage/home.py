@@ -5,6 +5,7 @@ from decouple import config
 from pymongo.mongo_client import MongoClient
 from Logger import CustomLogger
 import warnings
+import json
 
 warnings.filterwarnings('ignore')
 
@@ -97,21 +98,22 @@ class Home_Page:
                     self.data = pd.read_csv("Raw_data/raw_file.csv")
 
             elif option == "Select a table from Sample Data":
-                MONGO_USERNAME = config('MONGO_USERNAME')
-                MONGO_PASSWORD = config('MONGO_PASSWORD')
-                client = MongoClient(f"mongodb+srv://{MONGO_USERNAME}:{MONGO_PASSWORD}@cluster0.xgvrey3.mongodb.net/?retryWrites=true&w=majority")
-                db = client['your_mongo_database']
-                table_list = db.list_collection_names()
-                table_name  = [list for list in table_list]
+                # MONGO_USERNAME = config('MONGO_USERNAME')
+                # MONGO_PASSWORD = config('MONGO_PASSWORD')
+                # client = MongoClient(f"mongodb+srv://{MONGO_USERNAME}:{MONGO_PASSWORD}@cluster0.xgvrey3.mongodb.net/?retryWrites=true&w=majority")
+                # db = client['your_mongo_database']
+                # table_list = db.list_collection_names()
+                with open(r'sample_data\sample_data.json', 'r', encoding='utf-8') as json_file:
+                    json_data = json.load(json_file)
+
+                table_name  = list(json_data.keys())
                 
                 selected_table = st.selectbox("Select a table", table_name)
                 
                 # Display the selected table name
                 st.write(f"You selected: {selected_table}")
 
-                dataframe = list(db[selected_table].find())
-                df = pd.DataFrame(dataframe)
-                df = df.iloc[:,1:]
+                df = pd.DataFrame(json_data[selected_table])
                 # Find and drop unnamed columns
                 unnamed_columns = [col for col in df.columns if 'Unnamed: 0' in col]
 
